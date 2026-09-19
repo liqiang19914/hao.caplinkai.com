@@ -1,0 +1,94 @@
+{template "header.html"}
+<div id="content" class="container my-3 my-md-4">
+
+    <main class="content sidebar_right" role="main">
+        <div class="content-wrap">
+            <div class="content-layout ">
+                <div class="panel card">
+                    <div class="card-body">
+                        <div class="panel-header mb-4">
+                            <h1 class="h3">{$title}</h1>
+                        </div>
+                        <div class="panel-body mt-2">
+                            {$content}
+                    </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <script>
+            $(function () {
+                 $('body').attr('class','post-template-default single single-post single-format-standard sidebar_right post');
+            });
+        </script>
+
+        <div class="sidebar sidebar-tools d-none d-lg-block">
+            <div id="new_cat-2" class="card io-sidebar-widget new_cat">
+                <div class="card-header widget-header"><h3 class="text-md mb-0"><i
+                        class="mr-2 iconfont icon-category"></i>最新文章</h3></div>
+                <div class="card-body">
+                    <div class="list-grid list-rounded my-n2">
+
+                        {module module=blog num=5}
+                        <div class="list-item py-2">
+                            <div class="media media-3x2 rounded col-4 mr-3">
+                                <a class="media-content" href="{$t.url}" target='_blank'
+                                   title="{$t.title}" data-src="{dr_thumb($t.thumb)}"></a>
+                            </div>
+                            <div class="list-content py-0">
+                                <div class="list-body">
+                                    <a href="{$t.url}" class="list-title overflowClip_2" target='_blank'
+                                       rel="bookmark">{$t.title}</a>
+                                </div>
+                                <div class="list-footer">
+                                    <div class="d-flex flex-fill text-muted text-xs">
+                                        <time class="d-inline-block">{$t.updatetime}</time>
+                                        <div class="flex-fill"></div>
+                                        <span class="views"><i class="iconfont icon-chakan"></i>{formatReadCount($t.hits)}</span></div>
+                                </div>
+                            </div>
+                        </div>
+                        {/module}
+                    </div>
+                </div>
+
+            </div>
+            <div id="random_sites-3" class="card io-sidebar-widget io-widget-random-list">
+                <div class="d-flex sidebar-header">
+                    <div class="card-header widget-header"><h3 class="text-md mb-0"><i
+                            class="mr-2 iconfont icon-chart-pc"></i>热门工具</h3></div>
+                    <span class="ml-auto load">
+            </span></div>
+                <div class="card-body ajax-panel">
+                    <div class="row row-sm my-n1">
+
+                        {module  module=webnav order=hits num=6}
+                        <div class="url-card col-6  my-1">
+                            <a href="{$t.url}" class="card post-min m-0">
+                                <div class="card-body">
+                                    <div class="url-content d-flex align-items-center">
+                                        <div class="url-img rounded-circle">
+                                            <img class=" lazy unfancybox" src="{$wztb}" data-src="{dr_thumb($t.tubiao)}" height="auto" width="auto" alt="{$t.title}">
+                                        </div>
+                                        <div class="url-info pl-1 flex-fill">
+                                            <div class="text-xs overflowClip_1">{$t.title}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        {/module}
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </main>
+</div>
+
+{template "footer.html"}

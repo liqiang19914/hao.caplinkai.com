@@ -1,0 +1,222 @@
+{template "header.html"}
+<div id="content" class="container my-3 my-md-4">
+
+    <nav class="text-xs mb-3 mb-md-4" aria-label="breadcrumb"><i class="iconfont icon-home"></i>
+        <a class="crumbs"
+                                                                                                    href="{SITE_URL}">首页</a>
+        <i class="px-1">•</i>{dr_catpos($catid, '<i class="px-1">•</i>', true, '<a href="[url]" rel="category tag">[name]</a>')}
+        <i
+            class="px-1">•</i><span aria-current="page">{$title}</span>
+    </nav>
+    <main class="content sidebar_right" role="main">
+        <div class="content-wrap">
+            <div class="content-layout ">
+                <div class="panel card">
+                    <div class="card-body">
+                        <div class="panel-header mb-4">
+                            <h1 class="h3 mb-3">{$title}</h1>
+                            <div class="d-flex flex-fill text-muted text-sm pb-4 border-bottom border-t">
+                                <span class="mr-3 d-none d-sm-block">
+                                <a href="{$cat.url}"><i class="iconfont icon-classification"></i>{$cat.name}</a></span>
+                                <span class="mr-3"><i
+                                    class="iconfont icon-time"></i><span
+                                    >{$inputtime}</span></span>
+
+                                <div class="flex-fill"></div>
+
+                                <span class="views mr-3">
+                                    <i class="iconfont icon-chakan"></i><small
+                                        class="share-count text-xs mt-1 dr_show_hits_{$id}"></small></span>
+
+                                <span class="mr-3"><a class="btn-like btn-link-like " href="javascript:dr_module_digg('{MOD_DIR}', '{$id}', 1);" >
+                                    <i class="iconfont icon-like"></i> <span class="like-count" id="module_digg_{$id}_1"></span></a></span>
+
+                                <script>
+                                    $(function() {
+                                        $.get("/index.php?is_ajax=1&s=zan&mid={MOD_DIR}&id={$id}", function(data){
+                                            if (data.code) {
+                                                var s = data.data;
+                                                $('#module_digg_{$id}_1').html(s.b);
+                                            }
+                                        }, 'json');
+
+                                        $.ajax({
+                                            type: "GET",
+                                            url: "/index.php?s=api&c=module&siteid={dr_module_siteid()}&app={MOD_DIR}&m=hits&id={$id}",
+                                            dataType: "jsonp",
+                                            success: function (data) {
+                                                if (data.code) {
+                                                    $(".dr_show_hits_{$id}").html(formatReadCount(data.msg));
+                                                } else {
+                                                    dr_tips(0, data.msg);
+                                                }
+                                            }
+                                        });
+                                    });
+                                </script>
+                            </div>
+                        </div>
+                        <div class="apd-bg">
+                            <div class="apd apd-right p-2">
+                                <script type="text/javascript" src="/index.php?s=diygg&c=home&m=index&id=5"></script>
+                            </div>
+                        </div>
+                        <div class="panel-body single mt-2">
+                            {$content}
+                        </div>
+                        <div class="post-tags my-3"><i class="iconfont icon-tags mr-2"></i>
+                            {loop $tags $name2 $url2}
+                            <a href="{diy_tag_url($url2,MOD_DIR)}"
+                                class="btn vc-l-cyan btn-sm text-xs text-height-xs m-1 rounded-pill" rel="tag"
+                                >{$name2}</a>
+                            {/loop}
+                        </div>
+                        <div class="alert alert-warning text-sm">
+                            {dr_code2html(dr_site_value('bqsm'))}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="near-navigation rounded mt-4 py-2">
+                    <div class="nav previous border-right border-color">
+                        {if $prev_page}
+                            <a class="near-permalink" href="{$prev_page.url}">
+                                <span>上一篇</span>
+                                <h4 class="near-title">{$prev_page.title}</h4>
+                            </a>
+                        {else}
+                            <a class="near-permalink">
+                                <span>上一篇</span>
+                                <h4 class="near-title">没有了</h4>
+                            </a>
+                        {/if}
+                    </div>
+                    <div class="nav next border-left border-color">
+                        {if $next_page}
+                        <a class="near-permalink" href="{$next_page.url}">
+                            <span>下一篇</span>
+                            <h4 class="near-title">{$next_page.title}</h4>
+                        </a>
+                        {else}
+                        <a class="near-permalink">
+                            <span>下一篇</span>
+                            <h4 class="near-title">没有了</h4>
+                        </a>
+                        {/if}
+
+                    </div>
+                </div>
+                <h4 class="text-gray text-lg my-4"><i class="site-tag iconfont icon-book icon-lg mr-1"></i>相关文章</h4>
+                <div class="row mb-n4">
+
+                    {related module=MOD_DIR NOT_id=$id tag=$tag num=6}
+                    <div class="col-6 col-md-4">
+                        <div class="card-post list-item">
+                            <div class="media media-4x3 p-0 rounded">
+                                <a class="media-content" href="{$t.url}"
+                                   data-src="{dr_thumb($t.thumb)}"></a>
+                            </div>
+                            <div class="list-content">
+                                <div class="list-body">
+                                    <a href="{$t.url}" class="list-title text-md overflowClip_2">{$t.title}</a>
+                                </div>
+                                <div class="list-footer">
+                                    <div class="d-flex flex-fill align-items-center">
+                                        <time class="mx-1">{$t.updatetime}</time>
+                                        <div class="flex-fill"></div>
+                                        <div class="text-muted text-xs">
+                                            <span class="views mr-1"><i
+                                                    class="iconfont icon-chakan mr-1"></i>{formatReadCount($t.hits)}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {/related}
+                </div>
+            </div>
+        </div>
+
+        <script>
+            $(function () {
+                 $('body').attr('class','post-template-default single single-post single-format-standard sidebar_right post');
+            });
+        </script>
+
+        <div class="sidebar sidebar-tools d-none d-lg-block">
+            <div id="advert-2" class="card io-sidebar-widget advert">
+                <div id="advert_widget">
+                    <script type="text/javascript" src="/index.php?s=diygg&c=home&m=index&id=4"></script>
+                </div>
+
+            </div>
+            <div id="new_cat-2" class="card io-sidebar-widget new_cat">
+
+
+
+                <div class="card-header widget-header"><h3 class="text-md mb-0"><i
+                        class="mr-2 iconfont icon-category"></i>最新文章</h3></div>
+                <div class="card-body">
+                    <div class="list-grid list-rounded my-n2">
+
+                        {module num=5}
+                        <div class="list-item py-2">
+                            <div class="media media-3x2 rounded col-4 mr-3">
+                                <a class="media-content" href="{$t.url}" target='_blank'
+                                   title="{$t.title}" data-src="{dr_thumb($t.thumb)}"></a>
+                            </div>
+                            <div class="list-content py-0">
+                                <div class="list-body">
+                                    <a href="{$t.url}" class="list-title overflowClip_2" target='_blank'
+                                       rel="bookmark">{$t.title}</a>
+                                </div>
+                                <div class="list-footer">
+                                    <div class="d-flex flex-fill text-muted text-xs">
+                                        <time class="d-inline-block">{$t.updatetime}</time>
+                                        <div class="flex-fill"></div>
+                                        <span class="views"><i class="iconfont icon-chakan"></i>{formatReadCount($t.hits)}</span></div>
+                                </div>
+                            </div>
+                        </div>
+                        {/module}
+                    </div>
+                </div>
+
+            </div>
+            <div id="random_sites-3" class="card io-sidebar-widget io-widget-random-list">
+                <div class="d-flex sidebar-header">
+                    <div class="card-header widget-header"><h3 class="text-md mb-0"><i
+                            class="mr-2 iconfont icon-chart-pc"></i>热门工具</h3></div>
+                    <span class="ml-auto load">
+            </span></div>
+                <div class="card-body ajax-panel">
+                    <div class="row row-sm my-n1">
+
+                        {module  module=webnav order=hits num=6}
+                        <div class="url-card col-6  my-1">
+                            <a href="{$t.url}" class="card post-min m-0">
+                                <div class="card-body">
+                                    <div class="url-content d-flex align-items-center">
+                                        <div class="url-img rounded-circle">
+                                            <img class=" lazy unfancybox" src="{$wztb}" data-src="{dr_thumb($t.tubiao)}" height="auto" width="auto" alt="{$t.title}">
+                                        </div>
+                                        <div class="url-info pl-1 flex-fill">
+                                            <div class="text-xs overflowClip_1">{$t.title}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        {/module}
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </main>
+</div>
+
+{template "footer.html"}

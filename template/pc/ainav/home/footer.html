@@ -1,0 +1,61 @@
+
+<div class="main-footer footer-stick container container-fluid customize-width pt-4 pb-3 footer-type-big">
+
+    <div class="footer-inner card rounded-xl m-0">
+        <div class="footer-text card-body text-muted text-center text-md-left">
+            <div class="row my-4">
+                <div class="col-12 col-md-4 mb-4 mb-md-0">
+                    <a class="footer-logo" href="{SITE_URL}" title="{SITE_NAME}">
+                        <img src="{SITE_LOGO}" class="logo-light mb-3" alt="{SITE_NAME}" height="40">
+                        <img src="{dr_get_file(dr_site_value('yejianlogo'))}" class="logo-dark d-none mb-3" alt="{SITE_NAME}" height="40">
+                    </a>
+                    <div class="text-sm">
+                        {dr_code2html(dr_site_value('dibumiaoshu'))}
+
+                    </div>
+                </div>
+                <div class="col-12 col-md-5 mb-4 mb-md-0">
+                    <p class="footer-links text-sm mb-3">
+                       {dr_code2html(dr_site_value('dibudaohang'))}
+                    </p>                                        <div class="footer-social">
+                    <a class="rounded-circle bg-light" href="mailto:{dr_site_value('lxyx')}" target="_blank"  data-toggle="tooltip" data-placement="top" title="联系邮箱" rel="external noopener nofollow">
+                        <i class="iconfont icon-email"></i>
+                    </a>                    </div>
+                </div>
+                <div class="col-12 col-md-3 text-md-right mb-4 mb-md-0">
+                </div>
+            </div>
+            <div class="footer-copyright text-xs">
+
+                Copyright © <script>window.document.write((new Date()).getFullYear())</script> <a href="{SITE_URL}" title="{SITE_NAME}" rel="home">{SITE_NAME}</a>&nbsp;
+
+                <a href="https://beian.miit.gov.cn/" target="_blank" rel="link noopener">{SITE_ICP}</a>&nbsp;
+
+                {dr_code2html(dr_site_value('gabaxx'))}
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<footer>
+    <div id="footer-tools" class="d-flex flex-column">
+        <a href="javascript:" id="go-to-up" class="btn rounded-circle go-up m-1" rel="go-top">
+            <i class="iconfont icon-to-up"></i>
+        </a>
+        <a href="javascript:" id="switch-mode" class="btn rounded-circle switch-dark-mode m-1" data-toggle="tooltip" data-placement="left" title="夜间模式">
+            <i class="mode-ico iconfont icon-light"></i>
+        </a>
+    </div>
+</footer>
+<div id="amm_drcfw_toast_msg"></div>
+<script type='text/javascript' src='{HOME_THEME_PATH}js/swiper-bundle.min.js' id='swiper-js'></script>
+<script type='text/javascript' src='{HOME_THEME_PATH}js/popper.min.js' id='popper-js'></script>
+<script type='text/javascript' src='{HOME_THEME_PATH}js/bootstrap.min.js' id='bootstrap-js'></script>
+<script type='text/javascript' src='{HOME_THEME_PATH}js/theia-sticky-sidebar.js' id='sidebar-js'></script>
+<script type='text/javascript' src='{HOME_THEME_PATH}js/lazyload.min.js' id='lazyload-js'></script>
+<script type='text/javascript' src='{HOME_THEME_PATH}js/app.min.js' id='appjs-js'></script>
+
+{SITE_TONGJI}
+</body>
+</html>

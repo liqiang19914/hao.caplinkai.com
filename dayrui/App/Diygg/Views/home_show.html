@@ -1,0 +1,57 @@
+{template "header.html"}
+
+<style>
+    #dr_row_adbody img{
+        max-width: 100%;
+    }
+    .second{
+        margin-top: 40px;
+    }
+</style>
+
+<div class="right-card-box">
+
+    <form class="form-horizontal" role="form" id="myform">
+        {dr_form_hidden()}
+        <div class="table-scrollable">
+            <table class="table table-striped table-bordered table-hover table-checkable dataTable">
+                <thead>
+                <tr class="heading">
+                    {loop $list $t}
+                    <th width="{$t.width}" style="text-align:left;"> {dr_lang($t.name)} </th>
+                    {/loop}
+                </tr>
+                </thead>
+                <tbody>
+                {loop $show $t}
+                <tr class="odd gradeX" id="dr_row_adbody">
+                    <td style="text-align:left;"> {$t.s1} </td>
+                    <td style="text-align:left;"> {$t.s2} </td>
+                    <td style="text-align:left;"> {$t.s3} </td>
+                    <td style="text-align:left;"> {$t.s4} </td>
+                    <td style="text-align:left;"> {$t.s5} </td>
+                </tr>
+                {/loop}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="table-scrollable second">
+            <table class="table table-striped table-bordered table-hover table-checkable dataTable">
+                <thead>
+                <tr class="heading">
+                    <th width="100%" style="text-align:left;"> {dr_lang('广告预览：')} </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="odd gradeX">
+                    <td style="text-align:left;"> {$ad} </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </form>
+</div>
+
+{template "footer.html"}

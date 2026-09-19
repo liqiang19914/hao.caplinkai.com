@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="io-grey-mode">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#f9f9f9" />
+
+    <title>{$meta_title}</title>
+    <meta content="{$meta_keywords}" name="keywords" />
+    <meta content="{$meta_description}" name="description" />
+
+<?php
+$wztb=dr_get_file(dr_site_value('wztb'));
+$daohanglanmu=dr_site_value('daohanglanmu');
+?>
+    <link rel="shortcut icon" href="{$wztb}" type="image/x-icon" />
+
+    <!--[if IE]><script src="{HOME_THEME_PATH}js/html5.min.js"></script><![endif]-->
+
+
+    <link rel='stylesheet' id='classic-theme-styles-css' href='{HOME_THEME_PATH}css/classic-themes.min.css' type='text/css' media='all' />
+    <link rel='stylesheet' id='iconfont-css' href='{HOME_THEME_PATH}css/iconfont.css' type='text/css' media='all' />
+    <link rel='stylesheet' id='font-awesome-css' href='{HOME_THEME_PATH}fontawesome/css/all.min.css' type='text/css' media='all' />
+    <link rel='stylesheet' id='font-awesome4-css' href='{HOME_THEME_PATH}fontawesome/css/v4-shims.min.css' type='text/css' media='all' />
+    <link rel='stylesheet' id='bootstrap-css' href='{HOME_THEME_PATH}css/bootstrap.min.css' type='text/css' media='all' />
+    <link rel='stylesheet' id='swiper-css' href='{HOME_THEME_PATH}css/swiper-bundle.min.css' type='text/css' media='all' />
+    <link rel='stylesheet' id='style-css' href='{HOME_THEME_PATH}css/style.min.css' type='text/css' media='all' />
+    <script type='text/javascript' src='{HOME_THEME_PATH}js/jquery.min.js' id='jquery-js'></script>
+    <script type='text/javascript' src='{HOME_THEME_PATH}js/common.js' ></script>
+
+    <!-- 系统懒人版js(所有自建模板引用) -->
+    <script type="text/javascript">var is_mobile_cms = '{IS_MOBILE}';var web_dir = '{WEB_DIR}';</script>
+    <script src="{LANG_PATH}lang.js" type="text/javascript"></script>
+    <script src="{THEME_PATH}assets/js/cms.js" type="text/javascript"></script>
+    <!-- 系统懒人版js结束 -->
+</head>
+<body class="home blog sidebar_no">
+<div id="sidebar" class="sticky sidebar-nav fade">
+    <div class="modal-dialog h-100  sidebar-nav-inner">
+        <div class="sidebar-logo border-bottom border-color">
+            <!-- logo -->
+            <div class="logo overflow-hidden">
+                <h1 class="text-hide position-absolute">{SITE_NAME}</h1>
+                <a href="{SITE_URL}" class="logo-expanded">
+                    <img src="{SITE_LOGO}" height="40" class="logo-light" alt="{SITE_NAME}">
+                    <img src="{dr_get_file(dr_site_value('yejianlogo'))}" height="40" class="logo-dark d-none" alt="{SITE_NAME}">
+                </a>
+                <a href="{SITE_URL}" class="logo-collapsed">
+                    <img src="{$wztb}" height="40" class="logo-light" alt="{SITE_NAME}">
+                    <img src="{dr_get_file(dr_site_value('yejiantubiao'))}" height="40" class="logo-dark d-none" alt="{SITE_NAME}">
+                </a>
+            </div>
+            <!-- logo end -->
+        </div>
+        <div class="sidebar-menu flex-fill">
+            <div class="sidebar-scroll" >
+                <div class="sidebar-menu-inner">
+                    <ul>
+
+
+<?php
+if($daohanglanmu){
+?>
+                        <li class="sidebar-item top-menu">
+                            <a href="javascript:;" class="smooth  change-href">
+                                <i class="iconfont icon-category icon-fw icon-lg"></i>
+                                <span>站点推荐</span>
+                            </a>
+                            <i class="iconfont icon-arrow-r-m sidebar-more text-sm"></i>
+                            <ul>
+                                {category module=share id=$daohanglanmu}
+                                <li id="menu-item-{$t.id}" class="menu-item menu-item-type-post_type menu-item-object-page {if $t.child}menu-item-has-children{/if} menu-item-{$t.id}"><a href="{$t.url}">{$t.name}</a>
+                                    {if $t.child}
+                                    <ul class="sub-menu">
+                                        {category module=share pid=$t.id return=t2}
+                                        <li id="menu-item-{$t.id}-{$t2.id}" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-{$t.id}-{$t2.id}"><a href="{$t2.url}">{$t2.name}</a></li>
+                                        {/category}
+                                    </ul>
+                                    {/if}
+                                </li>
+                                {/category}
+
+                            </ul>
+                        </li>
+                        <?php } ?>
+
+                        {category module=webnav pid=0}
+                            <li class="sidebar-item">
+                                <a href="{if !$indexc}{SITE_URL}{/if}#nav-{$t.id}" {if $indexc}class="smooth"{/if}>
+                                    <i class="{$t.tubiao} icon-fw icon-lg"></i>
+                                    <span>{$t.name}</span>
+                                </a>
+                                {if $t.child}
+                                    <i class="iconfont icon-arrow-r-m sidebar-more text-sm"></i>
+                                    <ul >
+                                        {category module=webnav pid=$t.id return=t2}
+                                        <li>
+                                            <a href="{if !$indexc}{SITE_URL}{/if}#nav-{$t.id}-{$t2.id}" class="smooth"><i class="{$t2.tubiao} icon-fw"></i><span>{$t2.name}</span></a>
+                                        </li>
+                                        {/category}
+                                    </ul>
+                                {/if}
+                            </li>
+                        {/category}
+
+
+
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="border-top py-2 border-color">
+            <div class="flex-bottom">
+                <ul>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="main-content flex-fill">
+    <div class="no-big-header header-nav">
+        <div id="header" class="page-header sticky">
+            <div class="navbar navbar-expand-md">
+                <div class="container-fluid p-0 position-relative">
+                    <div class="">
+                        <a href="{SITE_URL}" class="navbar-brand d-md-none m-0" title="{SITE_NAME}">
+                            <img src="{SITE_LOGO}" class="logo-light" alt="{SITE_NAME}" height="30">
+                            <img src="{dr_get_file(dr_site_value('yejianlogo'))}" class="logo-dark d-none" alt="{SITE_NAME}" height="30">
+                        </a>
+                    </div>
+                    <div class="collapse navbar-collapse order-2 order-md-1">
+                        <div class="header-mini-btn">
+                            <label>
+                                <input id="mini-button" type="checkbox" checked="checked">
+                                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                                    <path class="line--1" d="M0 40h62c18 0 18-20-17 5L31 55"></path>
+                                    <path class="line--2" d="M0 50h80"></path>
+                                    <path class="line--3" d="M0 60h62c18 0 18 20-17-5L31 45"></path>
+                                </svg>
+                            </label>
+
+                        </div>
+                        <ul class="navbar-nav navbar-top site-menu mr-4">
+
+                            <li id="menu-item-1201" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-has-children menu-item-1201"><a href="{SITE_URL}" aria-current="page">{SITE_NAME}</a>
+                                <ul class="sub-menu">
+
+                                    {category module=webnav pid=0}
+                                    <li class="menu-item menu-item-type-taxonomy menu-item-object-favorites"><a href="{$t.url}"> <i class="{$t.tubiao} icon-fw"></i>{$t.name}</a></li>
+                                    {/category}
+                                </ul>
+                            </li>
+
+                            {category module=share id=$daohanglanmu pid=0}
+                            <li class="menu-item menu-item-type-post_type menu-item-object-page {if $t.child}menu-item-has-children{/if}">
+                                <a href="{$t.url}">{$t.name}</a>
+                                {if $t.child}
+                                <ul class="sub-menu">
+                                    {category module=share pid=$t.id return=t2}
+                                    <li class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent"><a href="{$t2.url}">{$t2.name}</a></li>
+                                    {/category}
+                                </ul>
+                                {/if}
+                            </li>
+                            {/category}
+
+
+
+
+                        </ul>
+                    </div>
+                    <ul class="nav navbar-menu text-xs order-1 order-md-2 position-relative">
+                        <li class="nav-item d-md-none mobile-menu ml-3 ml-md-4"><a href="javascript:" id="sidebar-switch" data-toggle="modal" data-target="#sidebar"><i class="iconfont icon-classification icon-lg"></i></a></li>                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="placeholder"></div>
+    </div>

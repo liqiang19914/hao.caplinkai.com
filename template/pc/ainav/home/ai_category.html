@@ -1,0 +1,80 @@
+{template "header.html"}
+{template "search_block.html"}
+
+
+<div id="content" class="container container-lg">
+        <div class="content-wrap">
+            <div class="content-layout">
+                <h4 class="text-gray text-lg mb-4"><i class="{if $cat.tubiao}{$cat.tubiao}{else}site-tag iconfont icon-tag{/if}  icon-lg mr-1"></i>{$cat.name}</h4>
+                <div class="row">
+                    <?php
+                    $page_config=array(
+                    /**这里是自定义分页样式配置文件*/
+                    // 自定义“统计”链接
+                    'total_link' => FALSE, // 你希望在分页中显示“统计”链接的名字。如果你不希望显示，可以把它的值设为 FALSE
+                    'total_tag_open' => '', // “统计”链接的打开标签
+                    'total_tag_close' => '', // “统计”链接的关闭标签
+                    // 自定义“下一页”链接
+                    'next_link' => '下一页', // 你希望在分页中显示“下一页”链接的名字。如果你不希望显示，可以把它的值设为 FALSE
+                    'next_tag_open' => '', // “下一页”链接的打开标签
+                    'next_tag_close' => '', // “下一页”链接的关闭标签
+                    // 自定义“上一页”链接
+                    'prev_link' => '上一页', // 你希望在分页中显示“上一页”链接的名字。如果你不希望显示，可以把它的值设为 FALSE
+                    'prev_tag_open' => '', // “上一页”链接的打开标签
+                    'prev_tag_close' => '', // “上一页”链接的关闭标签
+                    // 自定义“当前页”链接
+                    'cur_tag_open' => '<span aria-current="page" class="page-numbers current">', // “当前页”链接的打开标签
+                    'cur_tag_close' => '</span>', // “当前页”链接的关闭标签
+                    // 自定义“数字”链接
+                    'num_tag_open' => '', // “数字”链接的打开标签
+                    'num_tag_close' => '', // “数字”链接的关闭标签
+                    // 自定义“最后一页”链接
+                    'last_link' => '最后一页',
+                    'last_tag_open' => '', // “最后一页”链接的打开标签
+                    'last_tag_close' => '', // “最后一页”链接的关闭标签
+                    // 自定义“第一页”链接
+                    'first_link' => '第一页',
+                    'first_tag_open' => '', // “第一页”链接的打开标签
+                    'first_tag_close' => '', // “第一页”链接的关闭标签
+                    // 是否显示数字链接
+                    'display_pages' => TRUE,
+                    // 显示的分页左右两边数字个数
+                    'num_links' => 2,
+                    // 区域标签
+                    'full_tag_open' => '',
+                    // 区域标签
+                    'full_tag_close' => '','compel_page' =>  0,
+                    );
+                    if (dr_is_mobile()) {
+                    $page_config['num_links']=1;
+                    }
+                    $this->set_page_config($page_config);
+                    ?>
+                    {module catid=$catid page=1}
+                                                <div class="url-card col-6 col-sm-6 col-md-4 col-xl-3 ">
+
+                            <div class="url-body default ">
+                                <a href="{$t.url}" target="_blank" class="card no-c  mb-4 site-13" data-toggle="tooltip" data-placement="bottom"  title="{$t.description}">
+                                    <div class="card-body url-content d-flex align-items-center">
+                                                            <div class="url-img rounded-circle mr-2 d-flex align-items-center justify-content-center">
+                                            <img class=" lazy unfancybox" src="{$wztb}" data-src="{dr_thumb($t.tubiao)}"  height="auto" width="auto"  alt="{$t.title}">
+                                        </div>
+                                                            <div class="url-info flex-fill">
+                                            <div class="text-sm overflowClip_1">
+                                            <strong>{$t.title}</strong>
+                                            </div>
+                                            <p class="overflowClip_1 m-0 text-muted text-xs">{$t.description}</p>
+                                        </div>
+                                    </div>
+                                </a>
+                                        </div>
+                            </div>
+                    {/module}
+                                        </div>
+                <div class="posts-nav mb-4">
+                    {$pages}
+                                    </div>
+            </div>
+        </div>
+            </div>
+{template "footer.html"}

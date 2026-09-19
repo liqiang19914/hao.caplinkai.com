@@ -1,0 +1,101 @@
+{template "header.html"}
+{template "search_block.html"}
+<div id="content" class="container my-4 my-md-5">
+    <main class="content" role="main">
+        <div class="content-wrap">
+            <div class="content-layout">
+                <div class="site-title mb-4">
+
+                    <h1 class="text-gray text-lg mb-2">
+                        <i class="site-tag iconfont icon-tag icon-lg mr-1" id="{$cat.name}"></i>{$cat.name} </h1>
+                    <p class="text-secondary text-sm">
+                    </p>
+                </div>
+                <div class="cat_list">
+
+                    <?php
+                    $page_config=array(
+                    /**这里是自定义分页样式配置文件*/
+                    // 自定义“统计”链接
+                    'total_link' => FALSE, // 你希望在分页中显示“统计”链接的名字。如果你不希望显示，可以把它的值设为 FALSE
+                    'total_tag_open' => '', // “统计”链接的打开标签
+                    'total_tag_close' => '', // “统计”链接的关闭标签
+                    // 自定义“下一页”链接
+                    'next_link' => '下一页', // 你希望在分页中显示“下一页”链接的名字。如果你不希望显示，可以把它的值设为 FALSE
+                    'next_tag_open' => '', // “下一页”链接的打开标签
+                    'next_tag_close' => '', // “下一页”链接的关闭标签
+                    // 自定义“上一页”链接
+                    'prev_link' => '上一页', // 你希望在分页中显示“上一页”链接的名字。如果你不希望显示，可以把它的值设为 FALSE
+                    'prev_tag_open' => '', // “上一页”链接的打开标签
+                    'prev_tag_close' => '', // “上一页”链接的关闭标签
+                    // 自定义“当前页”链接
+                    'cur_tag_open' => '<span aria-current="page" class="page-numbers current">', // “当前页”链接的打开标签
+                    'cur_tag_close' => '</span>', // “当前页”链接的关闭标签
+                    // 自定义“数字”链接
+                    'num_tag_open' => '', // “数字”链接的打开标签
+                    'num_tag_close' => '', // “数字”链接的关闭标签
+                    // 自定义“最后一页”链接
+                    'last_link' => '最后一页',
+                    'last_tag_open' => '', // “最后一页”链接的打开标签
+                    'last_tag_close' => '', // “最后一页”链接的关闭标签
+                    // 自定义“第一页”链接
+                    'first_link' => '第一页',
+                    'first_tag_open' => '', // “第一页”链接的打开标签
+                    'first_tag_close' => '', // “第一页”链接的关闭标签
+                    // 是否显示数字链接
+                    'display_pages' => TRUE,
+                    // 显示的分页左右两边数字个数
+                    'num_links' => 2,
+                    // 区域标签
+                    'full_tag_open' => '',
+                    // 区域标签
+                    'full_tag_close' => '','compel_page' =>  0,
+                    );
+                    if (dr_is_mobile()) {
+                    $page_config['num_links']=1;
+                    }
+                    $this->set_page_config($page_config);
+                    ?>
+                    {module catid=$catid page=1}
+                    <div class="list-grid list-grid-padding">
+                        <div class="list-item card">
+                            <div class="media media-3x2 rounded col-4 col-md-4">
+                                <a class="media-content" href="{$t.url}" title="{$t.title}"
+                                   data-src="{dr_thumb($t.thumb)}"></a>
+                            </div>
+                            <div class="list-content">
+                                <div class="list-body">
+                                    <h2>
+                                        <a href="{$t.url}" title="{$t.title}"
+                                           class="list-title text-lg overflowClip_2">{$t.title}</a>
+                                    </h2>
+                                    <div class="list-desc d-none d-md-block text-sm text-secondary my-3">
+                                        <div class="overflowClip_2 ">{$t.description}</div>
+                                    </div>
+                                </div>
+                                <div class="list-footer">
+                                    <div class="d-flex flex-fill align-items-center text-muted text-xs">
+                                                <span><i class="iconfont icon-classification"></i>
+                            <a href="{dr_cat_value($t.catid, 'url')}">{dr_cat_value($t.catid, 'name')}</a>
+                        </span>
+
+                                        <div class="flex-fill"></div>
+                                        <div>
+                                            <time class="mx-1">{$t.updatetime}</time>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {/module}
+
+                </div>
+                <div class="posts-nav">
+                    {$pages}
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+{template "footer.html"}

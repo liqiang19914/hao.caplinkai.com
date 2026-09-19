@@ -1,0 +1,292 @@
+{template "header.html"}
+
+<div id="content" class="container my-4 my-md-5">
+    <div class="background-fx"><img src="{HOME_THEME_PATH}picture/shape-01.svg" class="shape-01"><img
+            src="{HOME_THEME_PATH}picture/shape-02.svg" class="shape-02"><img
+            src="{HOME_THEME_PATH}picture/shape-03.svg" class="shape-03"><img
+            src="{HOME_THEME_PATH}picture/shape-04.svg" class="shape-04"><img
+            src="{HOME_THEME_PATH}picture/shape-05.svg" class="shape-05"><img
+            src="{HOME_THEME_PATH}picture/shape-06.svg" class="shape-06"><img
+            src="{HOME_THEME_PATH}picture/shape-07.svg" class="shape-07"><img
+            src="{HOME_THEME_PATH}picture/shape-08.svg" class="shape-08"><img
+            src="{HOME_THEME_PATH}picture/shape-09.svg" class="shape-09"><img
+            src="{HOME_THEME_PATH}picture/shape-10.svg" class="shape-10"><img
+            src="{HOME_THEME_PATH}picture/shape-11.svg" class="shape-11"></div>
+    <div class="row site-content py-4 py-md-5 mb-xl-5 mb-0 mx-xxxl-n5"><!-- 网址信息 -->
+        <div class="col-12 col-sm-5 col-md-4 col-lg-3">
+            <div class="siteico">
+                <img class="img-cover lazy unfancybox" src="{dr_get_file($thumb)}"
+                     height="auto"
+                     width="auto" alt="{$title}">
+
+                <div class="tool-actions text-center mt-md-4">
+                    <a href="javascript:dr_module_digg('{MOD_DIR}', '{$id}', 1);"
+                       class=" btn btn-like btn-icon btn-light rounded-circle p-2 mx-3 mx-md-2 " data-toggle="tooltip"
+                       data-placement="top" title="点赞">
+                <span class="flex-column text-height-xs">
+                    <i class="icon-lg iconfont icon-like"></i>
+                    <small class="like-count text-xs mt-1" id="module_digg_{$id}_1"></small>
+
+                </span>
+                    </a>
+                    <a href="javascript:;"
+                           class="btn-share-toggler btn btn-icon btn-light rounded-circle p-2 mx-3 mx-md-2"
+                           data-toggle="tooltip" data-placement="top" title="浏览"><span
+                        class="flex-column text-height-xs"><i class="icon-lg iconfont icon-chakan"></i><small
+                        class="share-count text-xs mt-1 dr_show_hits_{$id}"></small>
+                       <script>
+                           $(function() {
+                           $.get("/index.php?is_ajax=1&s=zan&mid={MOD_DIR}&id={$id}", function(data){
+                               if (data.code) {
+                                   var s = data.data;
+                                   $('#module_digg_{$id}_1').html(s.b);
+                               }
+                           }, 'json');
+
+                           $.ajax({
+                               type: "GET",
+                               url: "/index.php?s=api&c=module&siteid={dr_module_siteid()}&app={MOD_DIR}&m=hits&id={$id}",
+                               dataType: "jsonp",
+                               success: function (data) {
+                                   if (data.code) {
+                                       $(".dr_show_hits_{$id}").html(formatReadCount(data.msg));
+                                   } else {
+                                       dr_tips(0, data.msg);
+                                   }
+                               }
+                           });
+                       });
+                       </script>
+                </span></a></div>
+            </div>
+        </div>
+        <div class="col mt-4 mt-sm-0">
+            <div class="site-body text-sm"><a class='btn-cat custom_btn-d mr-1'
+                                              href='{$cat.url}'>{$cat.name}</a>
+                <h1 class="site-name h3 my-3">{$title}</h1>
+                <div class="mt-2"><p class="mb-2">{$description}</p>
+                    标签：
+                    {loop $tags $name2 $url2}
+                        <span class="mr-2"><a href="{diy_tag_url($url2,MOD_DIR)}" rel="tag">{$name2}</a><i
+                            class="iconfont icon-wailian text-ss"></i>
+                        </span>
+                    {/loop}
+                    <div class="site-go mt-3">
+                        <div id="security_check_img"></div>
+                        <span class="site-go-url">
+                            <a href="{$website}" title="{$title}"
+                                                     target="_blank" class="btn btn-arrow mr-2"><span>访问官网<i
+                                class="iconfont icon-arrow-r-m"></i></span></a>
+                        </span>
+                        <a href="javascript:"
+                                                                                         class="btn btn-primary qr-img tooltip-toggle rounded-lg"
+                                                                                         data-post_id="39"
+                                                                                         data-toggle="modal"
+                                                                                         data-placement="top"
+                                                                                         data-target="#report-sites-modal"
+                                                                                         title="反馈"><i
+                            class="iconfont icon-statement icon-lg"></i></a></div>
+                </div>
+            </div>
+        </div><!-- 网址信息 end -->
+
+        <div class="col-12 col-md-12 col-lg-4 mt-4 mt-lg-0">
+            <div class="apd apd-right">
+                <script type="text/javascript" src="/index.php?s=diygg&c=home&m=index&id=2"></script>
+            </div>
+        </div>
+
+    </div>
+    <main class="content" role="main">
+        <div class="content-wrap">
+            <div class="content-layout">
+                <div class="panel site-content card transparent">
+                    <div class="card-body p-0">
+
+                        <div class="apd-bg">
+                            <div class="apd apd-right p-2">
+                                <script type="text/javascript" src="/index.php?s=diygg&c=home&m=index&id=3"></script>
+                            </div>
+                        </div>
+                        <div class="panel-body single my-4 ">
+                            {$content}
+                        </div>
+                    </div>
+                </div>
+                <div class="alert alert-warning text-sm">
+                    {dr_code2html(dr_site_value('bqsm'))}
+                </div>
+                <h2 class="text-gray text-lg my-4"><i class="site-tag iconfont icon-tag icon-lg mr-1"></i>类似网站</h2>
+                <div class="row mb-n4">
+
+                    {related module=MOD_DIR NOT_id=$id tag=$tag num=9}
+                        <div class="url-card col-6 col-sm-6 col-md-4 ">
+                            <div class="url-body default ">
+                                <a href="{$t.url}"
+                                   class="card no-c  mb-4 site-2304" data-toggle="tooltip" data-placement="bottom"
+                                   title="{$t.description}">
+                                    <div class="card-body url-content d-flex align-items-center">
+                                        <div class="url-img rounded-circle mr-2 d-flex align-items-center justify-content-center">
+                                            <img class=" lazy unfancybox" src="{$wztb}"
+                                                 data-src="{dr_thumb($t.tubiao)}"
+                                                 height="auto" width="auto" alt="{dr_thumb($t.tubiao)}">
+                                        </div>
+                                        <div class="url-info flex-fill">
+                                            <div class="text-sm overflowClip_1">
+                                                <strong>{$t.title}</strong>
+                                            </div>
+                                            <p class="overflowClip_1 m-0 text-muted text-xs">{$t.description}</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    {/related}
+                </div>
+
+            </div>
+        </div>
+    </main>
+</div>
+{php extract(dr_get_mform_post_value(MOD_DIR, 'fankui',$id))}
+<div id="amm_drcfw_toast_msg"></div>
+<div class="modal fade add_new_sites_modal" id="report-sites-modal" tabindex="-1" role="dialog"
+     aria-labelledby="report-sites-title" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-md" id="report-sites-title">反馈</h5>
+                <button type="button" id="close-sites-modal" class="close io-close" data-dismiss="modal"
+                        aria-label="Close">
+                    <i aria-hidden="true" class="iconfont icon-close-circle text-xl"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-info" role="alert">
+                    <i class="iconfont icon-statement "></i> 让我们一起共建文明社区！您的反馈至关重要！
+                </div>
+                <form id="report-form" method="post">
+                    <input type="hidden" name="post_id" value="39">
+                    <input type="hidden" name="action" value="report_site_content">
+                    <div class="form-row">
+                        <div class="col-6 py-1">
+                            <label><input type="radio" name="title" class="reason-type-1" value="已失效" checked>
+                                已失效</label>
+                        </div>
+                        <div class="col-6 py-1">
+                            <label><input type="radio" name="title" class="reason-type-2" value="重定向&变更">
+                                重定向&变更</label>
+                        </div>
+                        <div class="col-6 py-1">
+                            <label><input type="radio" name="title" class="reason-type-3" value="已屏蔽"> 已屏蔽</label>
+                        </div>
+                        <div class="col-6 py-1">
+                            <label><input type="radio" name="title" class="reason-type-4" value="敏感内容"> 敏感内容</label>
+                        </div>
+                        <div class="col-6 py-1">
+                            <label><input type="radio" name="title" class="reason-type-0" value="其他"> 其他</label>
+                        </div>
+                    </div>
+                    <div class="form-group other-reason-input" style="display: none;">
+                        <input type="text" class="form-control other-reason" value="" placeholder="其它信息">
+                    </div>
+                    <div class="form-group redirect-url-input" style="display: none;">
+                        <input type="text" class="form-control redirect-url" value="" placeholder="重定向&变更后的地址">
+                    </div>
+                    {if $is_post_code}
+                    <div class="form-group">
+                            <label>
+                                <div class="form-recaptcha">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" name="code" placeholder="验证码">
+                                        <div class="input-group-btn fc-code">
+                                            {dr_code(120, 35)}
+                                        </div>
+                                    </div>
+                                </div>
+                            </label>
+                    </div>
+                    {/if}
+                    <div class=" text-center">
+                        <button type="submit" class="btn btn-danger">提交反馈</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(function () {
+            $('.tooltip-toggle').tooltip();
+            $('input[type=radio][name=title]').change(function () {
+                var t = $(this);
+                var reason = $('.other-reason-input');
+                var url = $('.redirect-url-input');
+                reason.hide();
+                url.hide();
+                if (t.val() === '其他') {
+                    reason.show();
+                } else if (t.val() === '重定向&变更') {
+                    url.show();
+                }
+            });
+            $(document).on("submit", '#report-form', function (event) {
+                event.preventDefault();
+                var t = $(this);
+                var title = t.find('input[name="title"]:checked').val();
+                var fknr=null;
+                if (title === "其他") {
+                    fknr = t.find('.other-reason').val();
+                    if (fknr == "") {
+                        dr_tips(0,'信息不能为空！');
+                        return false;
+                    }
+                }
+                if (title === "重定向&变更") {
+                    fknr= t.find('.redirect-url').val();
+                    if (fknr == "") {
+                        dr_tips(0,'信息不能为空！');
+                        return false;
+                    }
+                }
+                var data ={
+                    title:title,
+                    fknr:fknr,
+                };
+                code = null;
+                if($('#report-sites-modal').find('input[name="code"]').length>0){
+                    code=$('#report-sites-modal').find('input[name="code"]').val();
+                    if(code==''){
+                        dr_tips(0,'验证码不能为空！');
+                        return false;
+                    }
+                }
+
+                $.ajax({
+                    url: '/index.php?s={MOD_DIR}&c=fankui&m=post&cid={$id}',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        'code':code,
+                        'data':data
+                    },
+                }).done(function (response) {
+                    //    触发验证码刷新
+                    $('#report-sites-modal .fc-code img').click();
+                        if (response.code >0) {
+                            dr_tips(1,response.msg);
+                            $('#report-sites-modal').modal('hide');
+                        }else{
+                            dr_tips(0,response.msg);
+
+                        }
+
+
+                    }).fail(function () {
+                        dr_tips(0,'网络错误 --.');
+                    });
+                return false;
+            });
+        });
+    </script>
+</div>
+{template "footer.html"}

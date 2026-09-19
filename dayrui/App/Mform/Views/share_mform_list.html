@@ -1,0 +1,85 @@
+{template "header.html"}
+
+{template "api_list_date_search.html"}
+
+{if $index}
+<div class="finecms-top-name" style="padding-bottom: 20px">
+    <a  href="{$index.url}" target="_blank"><code>{dr_strcut(dr_clearhtml($index.title), 50)}</code></a>
+</div>
+{/if}
+
+<div class="note note-danger" {if !isset($get.submit) && !$is_show_search_bar}style="display: none"{/if} id="table-search-tool">
+
+    <div class="row table-search-tool">
+        <form action="{SELF}" method="get">
+            {dr_form_search_hidden($p)}
+            <div class="col-md-12 col-sm-12">
+                <label>
+                    <select name="field" class="form-control">
+                        <option value="id"> Id </option>
+                        {loop $field $t}
+                        {if dr_is_admin_search_field($t)}
+                        <option value="{$t.fieldname}" {if $param.field==$t.fieldname}selected{/if}>{$t.name}</option>
+                        {/if}
+                        {/loop}
+                    </select>
+                </label>
+                <label><i class="fa fa-caret-right"></i></label>
+                <label><input type="text" class="form-control" placeholder="" value="{$param['keyword']}" name="keyword" /></label>
+            </div>
+
+            <div class="col-md-12 col-sm-12">
+                <label>
+                    <div class="input-group input-medium date-picker input-daterange" data-date="" data-date-format="yyyy-mm-dd">
+                        <input type="text" class="form-control" value="{$param.date_form}" name="date_form">
+                        <span class="input-group-addon"> {dr_lang('到')} </span>
+                        <input type="text" class="form-control" value="{$param.date_to}" name="date_to">
+                    </div>
+                </label>
+            </div>
+
+
+            <div class="col-md-12 col-sm-12">
+                <label><button id="table-search-tool-submit" type="button" class="btn blue btn-sm " name="submit" > <i class="fa fa-search"></i> {dr_lang('搜索')}</button></label>
+                <label><button id="table-search-tool-reset" type="reset" class="btn red btn-sm " name="reset" > <i class="fa fa-refresh"></i> {dr_lang('重置')}</button></label>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="right-card-box">
+
+    <form class="form-horizontal" role="form" id="myform">
+        {dr_form_hidden()}
+        <div id="toolbar" class="toolbar">
+            {if $ci->_is_admin_auth('del')}
+            <label><button type="button" onclick="dr_ajax_option('{dr_url($uriprefix.'/del')}', '{dr_lang('你确定要删除吗？')}', 1)" class="btn red btn-sm"> <i class="fa fa-trash"></i> {dr_lang('删除')}</button></label>
+            {/if}
+            {if $is_verify}
+            <label><button type="button" onclick="dr_ajax_option('{dr_url($uriprefix.'/status_index')}', '{dr_lang('你确定要审核通过它们吗？')}', 1)" class="btn blue btn-sm"> <i class="fa fa-check-square-o"></i> {dr_lang('通过')}</button></label>
+            <label><button type="button" onclick="dr_ajax_option('{dr_url($uriprefix.'/status_index', ['tid' => 1])}', '{dr_lang('你确定要拒绝它们吗？')}', 1)" class="btn yellow btn-sm"> <i class="fa fa-times-circle-o"></i> {dr_lang('拒绝')}</button></label>
+            {/if}
+            {if $cbottom}
+            <label>
+                <div class="btn-group dropup">
+                    <a class="btn  blue btn-sm dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" aria-expanded="false" href="javascript:;"> {dr_lang('批量')}
+                        <i class="fa fa-angle-up"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        {loop $cbottom $a}
+                        <li>
+                            <a href="{str_replace(['{mid}', '{fid}', '{cid}'], [APP_DIR, $form_table, $index.id], urldecode($a.url))}"> <i class="{$a.icon}"></i> {dr_lang($a.name)} </a>
+                        </li>
+                        {/loop}
+                    </ul>
+                </div>
+            </label>
+            {/if}
+            <label class="table_select_all"></label>
+        </div>
+
+        {template "mytable.html"}
+    </form>
+</div>
+
+{template "footer.html"}

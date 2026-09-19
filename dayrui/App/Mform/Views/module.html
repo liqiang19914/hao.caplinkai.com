@@ -1,0 +1,52 @@
+{template "header.html"}
+
+
+<form action="" class="form-horizontal" method="post" name="myform" id="myform">
+    <div class="table-scrollable">
+        <table class="table table-striped table-bordered table-hover table-checkable dataTable">
+            <thead>
+            <tr class="heading">
+                <th width="80"> </th>
+                <th width="300"> {dr_lang('名称')} / {dr_lang('表名')}</th>
+                <th> {dr_lang('操作')} </th>
+            </tr>
+            </thead>
+            <tbody>
+            {loop $module $i $t}
+            <tr class="odd gradeX">
+
+                <td> - </td>
+                <td><i class="{$t.icon}"></i> {$t.name} / {$t.dirname}</td>
+                <td>
+                    <label><a href="javascript:dr_iframe('{dr_lang('创建表单')}', '{dr_url('mform/module/form_add', ['dir'=>$t.dirname])}');" class="btn btn-sm green"> <i class="fa fa-plus"></i> {dr_lang('创建表单')} </a></label>
+                </td>
+            </tr>
+            {php $form = \Phpcmf\Service::M()->table('module_form')->where('module', $t.dirname)->getAll();}
+            {loop $form $t}
+            <tr class="odd gradeX" id="dr_row_{$t.id}">
+                <td style="text-align:center">
+                    <a href="javascript:;" onclick="dr_ajax_open_close(this, '{dr_url('mform/module/mhidden_edit', ['id'=>$t.id])}', 1);" class="badge badge-{if $t.disabled}no{else}yes{/if}"><i class="fa fa-{if $t.disabled}times{else}check{/if}"></i></a>
+                </td>
+                <td>&nbsp;&nbsp;└ &nbsp;{$t.name} / {$t.table}</td>
+                <td>
+                    <label><a href="javascript:top.dr_iframe_show('{dr_lang('已审核内容')}','{dr_url($t['module'].'/'.$t['table'].'/index')}&is_menu=1', '80%', '90%');" class="btn btn-xs blue"> <i class="fa fa-table"></i> {dr_lang('已审核内容')} </a></label>
+                    <label><a href="javascript:top.dr_iframe_show('{dr_lang('待审核内容')}','{dr_url($t['module'].'/'.$t['table'].'_verify/index')}&is_menu=1', '80%', '90%');" class="btn btn-xs red"> <i class="fa fa-edit"></i> {dr_lang('待审核内容')} </a></label>
+                    {if $ci->_is_admin_auth('edit')}
+                    <label><a href="{dr_url('mform/module/form_edit', ['dir'=>$t.module, 'id'=>$t.id])}" class="btn btn-xs green"> <i class="fa fa-edit"></i> {dr_lang('修改')} </a></label>
+                    {/if}
+                    {if $ci->_is_admin_auth()}
+                    <label><a href="javascript:top.dr_iframe_show('{dr_lang('自定义字段')}','{dr_url('field/index', ['rname'=>'mform-'.$t['module'], 'rid'=>$t.id])}&is_menu=1', '80%', '90%');" class="btn btn-xs dark"> <i class="fa fa-code"></i> {dr_lang('自定义字段')} </a></label>
+                    {/if}
+                    {if $ci->_is_admin_auth('del')}
+                    <label><a href="javascript:dr_load_ajax('{dr_lang('确定将此模块从当前站点中删除吗？')}', '{dr_url('mform/module/del', ['id'=>$t.id])}', 1);" class="btn btn-xs red"> <i class="fa fa-trash"></i> {dr_lang('删除')} </a></label>
+                    {/if}
+                </td>
+            </tr>
+            {/loop}
+            {/loop}
+            </tbody>
+        </table>
+    </div>
+</form>
+
+{template "footer.html"}

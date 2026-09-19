@@ -1,0 +1,14 @@
+# macOS
+.DS_Store
+__MACOSX/
+
+# 超过 GitHub 100MB 单文件限制的原始归档（本地与服务器另行保留）
+归档.zip
+
+# 运行时生成的目录与文件（以服务器为准，不进 Git）
+cache/
+index.html
+
+# IDE
+.idea/
+.vscode/

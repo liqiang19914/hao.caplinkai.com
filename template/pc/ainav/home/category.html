@@ -1,0 +1,139 @@
+{template "header.html"}
+
+<div id="content" class="container my-4 my-md-5">
+    <div class="slide-blog mb-4">
+        <div class="row no-gutters">
+
+            <div class="col-12 col-lg-8">
+                <div class="swiper swiper-post-module rounded-xl">
+                    <div class="swiper-wrapper">
+                        <?php
+                          $mysite=dr_site_value('hdtp');
+                         if ($mysite) { $key=0; foreach ($mysite as $v) { ?>
+                            <div class="swiper-slide media media-21x9"><a class="media-content media-title-bg"
+                                                                          href="{$v[3]}"
+                                                                          data-bg="url({dr_get_file($v[1])})"
+                                                                          target="_blank" rel="external noopener nofollow"
+                                                                          >
+                                <span class="carousel-caption d-none d-md-block">{$v[2]}</span></a>
+                            </div>
+                        <?php  $key++; } } ?>
+                    </div>
+                    <div class="swiper-pagination carousel-blog"></div>
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-4 d-none d-lg-block pl-0 pl-md-2">
+                <div class="h-100 d-flex flex-column justify-content-between">
+
+                    {module flag=1 num=2}
+                        <div class="media media-21x9 rounded-xl">
+                            <a class="media-content media-title-bg" href="{$t.url}"
+                               target="_blank"
+                               data-src="{dr_thumb($t.thumb)}">
+                                <span class="media-title d-none d-md-block overflowClip_1">{$t.title}</span>
+                            </a>
+                        </div>
+                    {/module}
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <main class="content" role="main">
+        <div class="content-wrap">
+            <div class="content-layout">
+
+
+                <div class="site-title mb-4">
+
+
+                </div>
+                <div class="cat_list">
+
+                    <?php
+                    $page_config=array(
+                    /**这里是自定义分页样式配置文件*/
+                    // 自定义“统计”链接
+                    'total_link' => FALSE, // 你希望在分页中显示“统计”链接的名字。如果你不希望显示，可以把它的值设为 FALSE
+                    'total_tag_open' => '', // “统计”链接的打开标签
+                    'total_tag_close' => '', // “统计”链接的关闭标签
+                    // 自定义“下一页”链接
+                    'next_link' => '下一页', // 你希望在分页中显示“下一页”链接的名字。如果你不希望显示，可以把它的值设为 FALSE
+                    'next_tag_open' => '', // “下一页”链接的打开标签
+                    'next_tag_close' => '', // “下一页”链接的关闭标签
+                    // 自定义“上一页”链接
+                    'prev_link' => '上一页', // 你希望在分页中显示“上一页”链接的名字。如果你不希望显示，可以把它的值设为 FALSE
+                    'prev_tag_open' => '', // “上一页”链接的打开标签
+                    'prev_tag_close' => '', // “上一页”链接的关闭标签
+                    // 自定义“当前页”链接
+                    'cur_tag_open' => '<span aria-current="page" class="page-numbers current">', // “当前页”链接的打开标签
+                    'cur_tag_close' => '</span>', // “当前页”链接的关闭标签
+                    // 自定义“数字”链接
+                    'num_tag_open' => '', // “数字”链接的打开标签
+                    'num_tag_close' => '', // “数字”链接的关闭标签
+                    // 自定义“最后一页”链接
+                    'last_link' => '最后一页',
+                    'last_tag_open' => '', // “最后一页”链接的打开标签
+                    'last_tag_close' => '', // “最后一页”链接的关闭标签
+                    // 自定义“第一页”链接
+                    'first_link' => '第一页',
+                    'first_tag_open' => '', // “第一页”链接的打开标签
+                    'first_tag_close' => '', // “第一页”链接的关闭标签
+                    // 是否显示数字链接
+                    'display_pages' => TRUE,
+                    // 显示的分页左右两边数字个数
+                    'num_links' => 2,
+                    // 区域标签
+                    'full_tag_open' => '',
+                    // 区域标签
+                    'full_tag_close' => '','compel_page' =>  0,
+                    );
+                    if (dr_is_mobile()) {
+                    $page_config['num_links']=1;
+                    }
+                    $this->set_page_config($page_config);
+                    ?>
+                    {module catid=$catid page=1}
+                    <div class="list-grid list-grid-padding">
+                        <div class="list-item card">
+                            <div class="media media-3x2 rounded col-4 col-md-4">
+                                <a class="media-content" href="{$t.url}" title="{$t.title}"
+                                   data-src="{dr_thumb($t.thumb)}"></a>
+                            </div>
+                            <div class="list-content">
+                                <div class="list-body">
+                                    <h2>
+                                        <a href="{$t.url}" title="{$t.title}"
+                                           class="list-title text-lg overflowClip_2">{$t.title}</a>
+                                    </h2>
+                                    <div class="list-desc d-none d-md-block text-sm text-secondary my-3">
+                                        <div class="overflowClip_2 ">{$t.description}</div>
+                                    </div>
+                                </div>
+                                <div class="list-footer">
+                                    <div class="d-flex flex-fill align-items-center text-muted text-xs">
+                                                <span><i class="iconfont icon-classification"></i>
+                            <a href="{dr_cat_value($t.catid, 'url')}">{dr_cat_value($t.catid, 'name')}</a>
+                        </span>
+
+                                        <div class="flex-fill"></div>
+                                        <div>
+                                            <time class="mx-1">{$t.updatetime}</time>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {/module}
+
+                </div>
+                <div class="posts-nav">
+                    {$pages}
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+{template "footer.html"}
