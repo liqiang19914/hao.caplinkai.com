@@ -1,9 +1,10 @@
 <?php
 // SEO TDK 定制：标题=品牌_分类_站点；关键词=品牌词+官网词+分类词；描述=简介全文
 $_cn = isset($cat['name']) ? trim($cat['name']) : '';
+$_sn = preg_split('/[：:]/', SITE_NAME, 2)[0]; // 站点短名，去掉口号后缀
 $_ds = trim((string)$description);
-$meta_title = $title . ($_cn ? '_'.$_cn : '') . '_' . SITE_NAME;
-$meta_keywords = $title.','.$title.'官网'.($_cn ? ','.$_cn.','.$_cn.'导航' : '').',' . SITE_NAME;
+$meta_title = $title . ($_cn ? '_'.$_cn : '') . '_' . $_sn;
+$meta_keywords = $title.','.$title.'官网'.($_cn ? ','.$_cn.','.$_cn.'导航' : '').',' . $_sn;
 $meta_description = $_ds ? $_ds : dr_strcut(dr_clearhtml($content), 100);
 ?>
 {template "header.html"}
