@@ -6,8 +6,9 @@ __MACOSX/
 归档.zip
 
 # 运行时生成的目录与文件（以服务器为准，不进 Git）
-cache/
-index.html
+# 注意：必须锚定根目录，否则会误伤框架内的 Cache/ 目录和各子目录的 index.html 防访问占位文件
+/cache/
+/index.html
 
 # IDE
 .idea/

@@ -1,0 +1,184 @@
+{template "header.html"}
+{template "search_block.html"}
+<?php $sfzl=dr_site_value('sfzl'); ?>
+<div id="content" class="container container-fluid customize-width">
+    <script type="text/javascript" src="/index.php?s=diygg&c=home&m=index&id=1"></script>
+    {if dr_site_value('sytj') == "1"}
+    <div class="d-flex slider-menu-father mb-4">
+        <div class="slider_menu mini_tab" sliderTab="sliderTab" >
+            <ul class="nav nav-pills tab-auto-scrollbar menu overflow-x-auto" role="tablist">
+                <li class="pagenumber nav-item">
+                    <a class="nav-link ajax-home-hot-list active load"><i class="fas fa-fire mr-2"></i>热门推荐</a>
+                    </li>            </ul>
+        </div>
+    </div>
+    <div class="tab-content">
+                <div id="ct-tab-sites-views0" class="tab-pane active">
+            <div class="row  ajax-list-body position-relative">
+
+
+                {module module=webnav flag=1 num=12}
+                                    <div class="url-card col-6  col-2a col-sm-2a col-md-2a col-lg-3a col-xl-5a col-xxl-6a  ">
+
+        <div class="url-body default ">
+
+            <a href="{$sfzl==1?$t['website']:$t['url']}" target="_blank" class="card no-c  mb-4 site-30" data-toggle="tooltip" data-placement="bottom"  title="{$t.description}">
+                <div class="card-body url-content d-flex align-items-center">
+                                        <div class="url-img rounded-circle mr-2 d-flex align-items-center justify-content-center">
+                        <img class=" lazy unfancybox" src="{dr_thumb($t.tubiao)}"  alt="{$t.title}">
+                    </div>
+                                        <div class="url-info flex-fill">
+                        <div class="text-sm overflowClip_1">
+                        <strong>{$t.title}</strong>
+                        </div>
+                        <p class="overflowClip_1 m-0 text-muted text-xs">{$t.description}</p>
+                    </div>
+                </div>
+            </a>
+                    </div>
+            </div>
+                {/module}
+
+
+
+                            </div>
+        </div>
+            </div>
+    {/if}
+        <!--最新网址-->
+    {if dr_site_value('syzxsl') == "1"}
+    <div class="d-flex slider-menu-father mb-4">
+      <div class="slider_menu mini_tab" sliderTab="sliderTab" >
+          <ul class="nav nav-pills tab-auto-scrollbar menu overflow-x-auto" role="tablist">
+              <li class="pagenumber nav-item">
+                  <a class="nav-link ajax-home-hot-list active load"><i class="fas fa-clock mr-2"></i>最新收录</a>
+                  </li>          </ul>
+      </div>
+  </div>
+  <div class="tab-content">
+            <div id="ct-tab-sites-date2" class="tab-pane active">
+          <div class="row  ajax-list-body position-relative">
+
+              {module module=webnav  order=id_desc num=12}
+              <div class="url-card col-6  col-2a col-sm-2a col-md-2a col-lg-3a col-xl-5a col-xxl-6a  ">
+
+                  <div class="url-body default ">
+
+                      <a href="{$sfzl==1?$t['website']:$t['url']}" target="_blank" class="card no-c  mb-4 site-30" data-toggle="tooltip" data-placement="bottom"  title="{$t.description}">
+                          <div class="card-body url-content d-flex align-items-center">
+                              <div class="url-img rounded-circle mr-2 d-flex align-items-center justify-content-center">
+                                  <img class=" lazy unfancybox" src="{dr_thumb($t.tubiao)}"  alt="{$t.title}">
+                              </div>
+                              <div class="url-info flex-fill">
+                                  <div class="text-sm overflowClip_1">
+                                      <strong>{$t.title}</strong>
+                                  </div>
+                                  <p class="overflowClip_1 m-0 text-muted text-xs">{$t.description}</p>
+                              </div>
+                          </div>
+                      </a>
+                  </div>
+              </div>
+              {/module}
+                          </div>
+      </div>
+        </div>
+    {/if}
+
+
+<div class="content">
+    <div class="content-wrap">
+        <div class="content-layout">
+
+            {category module=webnav pid=0}
+
+                <!-- tab模式菜单 -->
+            {if $t.child}
+                <h4 class="text-gray text-lg"><i class="site-tag {$t.tubiao} icon-lg mr-1" id="nav-{$t.id}"></i>{$t.name}</h4>
+                 <div class="d-flex flex-fill flex-tab align-items-center">
+                    <div class='slider_menu mini_tab ajax-list-home' sliderTab="sliderTab" data-id="{$t.id}">
+                        <ul class="nav nav-pills tab-auto-scrollbar menu overflow-x-auto" role="tablist">
+                            {category module=webnav pid=$t.id return=t2}
+                        <li class="pagenumber nav-item" data-sidebar="0" data-post_id="0" data-action="load_home_tab" data-taxonomy="favorites" data-id="{$t2.id}">
+                            <a id="nav-{$t.id}-{$t2.id}" class="nav-link tab-noajax{if $is_first} active{/if}" data-toggle="pill" href="#tab-{$t.id}-{$t2.id}" data-link="{$t2.url}">{$t2.name}</a>
+                            </li>
+                            {/category}
+                                      </ul>
+                    </div>
+                <div class="flex-fill"></div>
+                <a class='btn-move tab-move text-xs ml-2' href="{$t.url}">更多 &gt;&gt;</a>        </div>
+            {else}
+            <div class="d-flex flex-fill align-items-center mb-4">
+                <h4 class="text-gray text-lg m-0"><i class="site-tag fas fa-feather icon-lg mr-1" id="nav-{$t.id}"></i>{$t.name}</h4>
+                <div class="flex-fill"></div>
+                <a class="btn-move text-xs" href="{$t.url}">更多 &gt;&gt;</a>        </div>
+            {/if}
+        <!-- tab模式菜单 end -->
+        <div class="tab-content mt-4">
+            {if $t.child}
+                {category module=webnav pid=$t.id return=t2}
+                    <div id="tab-{$t.id}-{$t2.id}" class="tab-pane{if $is_first} active{/if}">
+                        <div class="row io-mx-n2 mt-4 ajax-list-body position-relative">
+
+                            {module module=$t2.mid  catid=$t2.id num=12 return=t3}
+                                <div class="url-card col-6  col-2a col-sm-2a col-md-2a col-lg-3a col-xl-5a col-xxl-6a">
+                                    <div class="url-body default ">
+
+                                        <a href="{$sfzl==1?$t3['website']:$t3['url']}" target="_blank" class="card no-c  mb-4 site-30" data-toggle="tooltip" data-placement="bottom"  title="{$t3.description}">
+                                            <div class="card-body url-content d-flex align-items-center">
+                                                <div class="url-img rounded-circle mr-2 d-flex align-items-center justify-content-center">
+                                                    <img class=" lazy unfancybox" src="{$wztb}" data-src="{dr_thumb($t3.tubiao)}"  alt="{$t3.title}">
+                                                </div>
+                                                <div class="url-info flex-fill">
+                                                    <div class="text-sm overflowClip_1">
+                                                        <strong>{$t3.title}</strong>
+                                                    </div>
+                                                    <p class="overflowClip_1 m-0 text-muted text-xs">{$t3.description}</p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            {/module}
+                        </div>
+                    </div>
+                {/category}
+            {else}
+                    <div id="tab-{$t.id}" class="tab-pane active">
+                        <div class="row io-mx-n2 mt-4 ajax-list-body position-relative">
+                            {module module=$t.mid catid=$t.id  num=12 return=t3}
+                            <div class="url-card col-6  col-2a col-sm-2a col-md-2a col-lg-3a col-xl-5a col-xxl-6a">
+                                <div class="url-body default ">
+
+                                    <a href="{$sfzl==1?$t3['website']:$t3['url']}" target="_blank" class="card no-c  mb-4 site-30" data-toggle="tooltip" data-placement="bottom"  title="{$t3.description}">
+                                        <div class="card-body url-content d-flex align-items-center">
+                                            <div class="url-img rounded-circle mr-2 d-flex align-items-center justify-content-center">
+                                                <img class=" lazy unfancybox" src="{$wztb}" data-src="{dr_thumb($t3.tubiao)}"  alt="{$t3.title}">
+                                            </div>
+                                            <div class="url-info flex-fill">
+                                                <div class="text-sm overflowClip_1">
+                                                    <strong>{$t3.title}</strong>
+                                                </div>
+                                                <p class="overflowClip_1 m-0 text-muted text-xs">{$t3.description}</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            {/module}
+                        </div>
+                    </div>
+
+            {/if}
+         </div>
+
+            {/category}
+
+
+    </div>
+    </div>
+
+
+</div>
+    {template "footer.html"}
+
