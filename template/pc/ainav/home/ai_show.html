@@ -1,3 +1,11 @@
+<?php
+// SEO TDK 定制：标题=品牌_分类_站点；关键词=品牌词+官网词+分类词；描述=简介全文
+$_cn = isset($cat['name']) ? trim($cat['name']) : '';
+$_ds = trim((string)$description);
+$meta_title = $title . ($_cn ? '_'.$_cn : '') . '_' . SITE_NAME;
+$meta_keywords = $title.','.$title.'官网'.($_cn ? ','.$_cn.','.$_cn.'导航' : '').',' . SITE_NAME;
+$meta_description = $_ds ? $_ds : dr_strcut(dr_clearhtml($content), 100);
+?>
 {template "header.html"}
 
 <div id="content" class="container my-4 my-md-5">
