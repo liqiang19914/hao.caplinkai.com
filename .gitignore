@@ -13,3 +13,6 @@ __MACOSX/
 # IDE
 .idea/
 .vscode/
+
+# 运维/数据体检工作区（不进仓库）
+_ops/
