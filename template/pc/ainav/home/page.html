@@ -36,7 +36,7 @@
                         <div class="list-item py-2">
                             <div class="media media-3x2 rounded col-4 mr-3">
                                 <a class="media-content" href="{$t.url}" target='_blank'
-                                   title="{$t.title}" data-src="{dr_thumb($t.thumb)}"></a>
+                                   title="{$t.title}" data-src="{dr_thumb($t.thumb, 128, 128)}"></a>
                             </div>
                             <div class="list-content py-0">
                                 <div class="list-body">
@@ -71,7 +71,7 @@
                                 <div class="card-body">
                                     <div class="url-content d-flex align-items-center">
                                         <div class="url-img rounded-circle">
-                                            <img class=" lazy unfancybox" src="{$wztb}" data-src="{dr_thumb($t.tubiao)}" height="auto" width="auto" alt="{$t.title}">
+                                            <img class=" lazy unfancybox" src="{$wztb}" data-src="{dr_thumb($t.tubiao, 128, 128)}" height="auto" width="auto" alt="{$t.title}">
                                         </div>
                                         <div class="url-info pl-1 flex-fill">
                                             <div class="text-xs overflowClip_1">{$t.title}</div>

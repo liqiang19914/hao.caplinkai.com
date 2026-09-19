@@ -93,7 +93,7 @@
                     <!--begin::Feature post-->
                     <div class="card-xl-stretch me-md-6">
                         <!--begin::Image-->
-                        <a class="d-block bgi-no-repeat bgi-size-cover bgi-position-center card-rounded position-relative min-h-175px mb-5" style="background-image:url('{dr_thumb($t.thumb)}')" href="{$t.url}">
+                        <a class="d-block bgi-no-repeat bgi-size-cover bgi-position-center card-rounded position-relative min-h-175px mb-5" style="background-image:url('{dr_thumb($t.thumb, 128, 128)}')" href="{$t.url}">
 
                         </a>
                         <!--end::Image-->
@@ -155,7 +155,7 @@
                 <div class="d-flex flex-stack mb-7">
                     <!--begin::Symbol-->
                     <div class="symbol symbol-60px symbol-2by3 me-4">
-                        <div class="symbol-label" style="background-image: url('{dr_thumb($t.thumb)}')"></div>
+                        <div class="symbol-label" style="background-image: url('{dr_thumb($t.thumb, 128, 128)}')"></div>
                     </div>
                     <!--end::Symbol-->
                     <!--begin::Title-->

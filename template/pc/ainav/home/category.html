@@ -30,7 +30,7 @@
                         <div class="media media-21x9 rounded-xl">
                             <a class="media-content media-title-bg" href="{$t.url}"
                                target="_blank"
-                               data-src="{dr_thumb($t.thumb)}">
+                               data-src="{dr_thumb($t.thumb, 128, 128)}">
                                 <span class="media-title d-none d-md-block overflowClip_1">{$t.title}</span>
                             </a>
                         </div>
@@ -99,7 +99,7 @@
                         <div class="list-item card">
                             <div class="media media-3x2 rounded col-4 col-md-4">
                                 <a class="media-content" href="{$t.url}" title="{$t.title}"
-                                   data-src="{dr_thumb($t.thumb)}"></a>
+                                   data-src="{dr_thumb($t.thumb, 128, 128)}"></a>
                             </div>
                             <div class="list-content">
                                 <div class="list-body">
